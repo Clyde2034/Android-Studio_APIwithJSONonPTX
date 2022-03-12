@@ -10,6 +10,8 @@ This project is fetch data from Taiwan PTX with API，after that using JSON pars
 >>UI：activity_main.xml、cardview_item.xml  
 >>Java：MainActivity.java、HMAC_SHA1.java（used to encode the signature）
 
+<img  src="https://user-images.githubusercontent.com/41913354/158035767-49a52188-7797-4d0c-936a-28e758701015.png" width="250"/>
+
 ## AndroidManifest.xml
 ```
     //...

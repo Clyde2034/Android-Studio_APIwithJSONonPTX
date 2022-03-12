@@ -212,3 +212,52 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
+## cardview_item.xml
+```
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="15dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/cardview_item_photo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+
+        <TextView
+            android:id="@+id/cardview_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Name："
+            app:layout_constraintBottom_toTopOf="@id/cardview_item_address"
+            app:layout_constraintStart_toEndOf="@id/cardview_item_photo"
+            app:layout_constraintTop_toTopOf="@id/cardview_item_photo" />
+
+        <TextView
+            android:id="@+id/cardview_item_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address："
+            app:layout_constraintBottom_toBottomOf="@id/cardview_item_photo"
+            app:layout_constraintStart_toStartOf="@id/cardview_item_name"
+            app:layout_constraintTop_toBottomOf="@id/cardview_item_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+```
+

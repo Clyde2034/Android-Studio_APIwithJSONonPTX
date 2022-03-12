@@ -9,10 +9,6 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-
-//此Class是透過當下日期以及APP_KEY進行加密運算之後再傳回伺服器與APP_ID做匹配
-//由PTX直接提供的，就無需再修改了。
-//by asd66998854
 public class HMAC_SHA1 {
 
     public static String Signature(String xData, String AppKey) throws SignatureException {

@@ -41,8 +41,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recycle_View;
     private Cardview_adapter cardview_adapter;
-    private ArrayList<HashMap<String, String>> receiveDATA = new ArrayList<>();//解析後的資料 by asd66998854
-    private Handler mainHandler = new Handler();//主線程 by asd66998854
+    private ArrayList<HashMap<String, String>> receiveDATA = new ArrayList<>();
+    private Handler mainHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package com.clyde.apiwithjson;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +29,11 @@ import java.net.URL;
 import java.security.SignatureException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -103,12 +107,13 @@ public class MainActivity extends AppCompatActivity {
         String APP_KEY = "v0_BS-lG5yeP5dKsrDjLcLHkOqI";//Your APP_KEY on PTX platform
         String Signature = "";
 
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
-        Date now_time_unformat = new Date();
-        String now_time_format = formatter.format(now_time_unformat);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String now_time_format = dateFormat.format(calendar.getTime());
 
         try {
-            Signature = HMAC_SHA1.Signature("x-date: ", APP_KEY);
+            Signature = HMAC_SHA1.Signature("x-date: " + now_time_format, APP_KEY);
         } catch (SignatureException e) {
             e.printStackTrace();
         }
@@ -118,14 +123,12 @@ public class MainActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)).build();
 
-        String sAuth = "hmac username=\"" + APP_ID + "\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\""
-                + Signature + "\"";
+        String sAuth = "hmac username=\"" + APP_ID + "\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"" + Signature + "\"";
 
         Request request = new Request.Builder()
                 .url(URL)
-                .addHeader("Authorization", "")
+                .addHeader("Authorization", sAuth)
                 .addHeader("x-date", now_time_format)
-                .addHeader("User-Agent:", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36")
                 .build();
 
         Call call = client.newCall(request);
@@ -142,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-
                 receiveDATA.clear();
                 try {
                     JSONArray jsonArray = new JSONArray(response.body().string());

@@ -1,6 +1,8 @@
 # Android-Studio-API-with-JSON
 This project is fetch data from Taiwan PTX with API，after that using JSON parser the data and format to recyclevie.
 
+> Deprecated API after 2022/12/31
+
 >API Require
 >
 >>okhttp  
